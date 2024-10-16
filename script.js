@@ -90,22 +90,24 @@ function goToSummary() {
 
             cart.forEach(item => {
                 total += item.price * item.qty;
+                const formattedPrice = (item.price * item.qty).toLocaleString('en-US');
                 modalCartHtml += `
                 <div class="cart-item">
                 <span class="cartFlex">
                     <img src="${item.image}" alt="${item.name}" width="90" crossorigin="anonymous">
                     <p>${item.name}</p> 
+                    <p style="margin-left:auto;">Qty: ${item.qty} </p> 
                 </span>
-                <span class="cartFlex">
-                    <p>Qty: ${item.qty} </p> 
+                <span class="cartFlex2">
                     <p style="margin-left:auto;">Rp ${item.price * item.qty}</p>
                 </span>
                 </div>
                 `;
-            });
 
+            });
+            const formattedTotal = total.toLocaleString('en-US');
             document.getElementById('modal-cart-items').innerHTML = modalCartHtml;
-            document.getElementById('modal-cart-total').innerText = total;
+            document.getElementById('modal-cart-total').innerText = formattedTotal;
         }
 
         // Function to close the modal
