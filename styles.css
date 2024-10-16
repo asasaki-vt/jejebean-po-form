@@ -123,14 +123,18 @@ button {
 
 .cartFlex{
     display: flex;
+    padding-bottom: 5px;
+}
+.cartFlex2{
+    display: flex;
+    border-bottom: 1px solid grey;
+    padding-bottom: 5px;
 }
 
 .cartFlex p{
     margin-top: 10px;
     margin-left: 10px;
     font-weight: 600;
-
-
 }
 
 button#checkout {
