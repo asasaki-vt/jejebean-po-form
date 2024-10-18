@@ -76,8 +76,45 @@ function removeFromCart(productName) {
     updateCart(); // Update the cart display after removal
 }
 
+// Function to toggle cart visibility in mobile view
+function toggleCart() {
+    const cart = document.querySelector('.cart');
+    const overlay = document.querySelector('.cart-overlay');
+    cart.classList.toggle('open'); // Toggle 'open' class for cart
+    overlay.classList.toggle('open'); // Toggle 'open' class for overlay
+}
 
-        // Function to open the modal and display cart items
+// Function to close cart when clicking outside the cart
+function closeCart() {
+    const cart = document.querySelector('.cart');
+    const overlay = document.querySelector('.cart-overlay');
+    cart.classList.remove('open'); // Remove 'open' class from cart
+    overlay.classList.remove('open'); // Remove 'open' class from overlay
+}
+
+// Close cart when clicking outside the cart (on the overlay)
+document.querySelector('.cart-overlay').addEventListener('click', closeCart);
+
+// Function to handle mobile view cart toggle button visibility
+function handleMobileCartToggle() {
+    const cartToggleBtn = document.getElementById('cart-toggle-btn');
+    
+    // Show the cart toggle button in mobile view (max-width: 768px)
+    if (window.innerWidth <= 768) {
+        cartToggleBtn.style.display = 'block';
+    } else {
+        cartToggleBtn.style.display = 'none';
+    }
+}
+
+// Run the function when the window is resized
+window.addEventListener('resize', handleMobileCartToggle);
+
+// Run the function on page load to check the initial window size
+window.addEventListener('DOMContentLoaded', handleMobileCartToggle);
+
+
+// Function to open the modal and display cart items
 function goToSummary() {
             updateModalCart(); // Update modal cart display
             document.getElementById('cartModal').style.display = "block"; // Show the modal
@@ -94,7 +131,6 @@ function goToSummary() {
                 modalCartHtml += `
                 <div class="cart-item">
                 <span class="cartFlex">
-                    <img src="${item.image}" alt="${item.name}" width="90" crossorigin="anonymous">
                     <p>${item.name}</p> 
                     <p style="margin-left:auto;">Qty: ${item.qty} </p> 
                 </span>
@@ -122,22 +158,4 @@ function goToSummary() {
                 modal.style.display = "none";
             }
         };
-
-    document.getElementById("captureBtn").addEventListener("click", function() {
-      // Select the modal by its ID
-      var modal = document.getElementById("cartModal");
-
-      html2canvas(modal, { useCORS: true, allowTaint: false }).then(function(canvas) {
-        // Convert the canvas to a data URL
-        var image = canvas.toDataURL("image/png");
-
-        // Create a temporary link to download the image
-        var link = document.createElement('a');
-        link.href = image;
-        link.download = 'Jejebean_CF19_po.png';
-
-        // Simulate clicking the link to download the image
-        link.click();
-      });
-    });
 
